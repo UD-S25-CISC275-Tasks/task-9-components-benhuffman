@@ -11,7 +11,7 @@ function ShoveBoxButton({
     return (
         <Button
             onClick={() => {
-                setPosition(4 + position);
+                setPosition(position + 4); // Increase marginLeft by 4px on each click
             }}
         >
             Shove the Box
@@ -19,8 +19,7 @@ function ShoveBoxButton({
     );
 }
 
-function MoveableBox(): React.JSX.Element {
-    const [position, setPosition] = useState<number>(10);
+function MoveableBox({ position }: { position: number }): React.JSX.Element {
     return (
         <div
             data-testid="moveable-box"
@@ -31,26 +30,25 @@ function MoveableBox(): React.JSX.Element {
                 border: "1px solid blue",
                 display: "inline-block",
                 verticalAlign: "bottom",
-                marginLeft: position + "px",
+                marginLeft: position + "px", // Dynamically set margin based on position
             }}
         ></div>
     );
 }
 
 export function ShoveBox(): React.JSX.Element {
-    const box = MoveableBox();
+    const [position, setPosition] = useState<number>(10); // Initial position set to 10px
 
     return (
         <div>
             <h3>Shove Box</h3>
-            {/* <span>The box is at: {box.position}</span>
             <div>
                 <ShoveBoxButton
-                    position={box.position}
-                    setPosition={box.setPosition}
-                ></ShoveBoxButton>
-                {box}
-            </div> */}
+                    position={position}
+                    setPosition={setPosition} // Pass setPosition to update position state
+                />
+                <MoveableBox position={position} /> {/* Pass position as prop */}
+            </div>
         </div>
     );
 }
