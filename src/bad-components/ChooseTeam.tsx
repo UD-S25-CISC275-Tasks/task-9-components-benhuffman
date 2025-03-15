@@ -14,16 +14,19 @@ export function ChooseTeam(): React.JSX.Element {
     //const [allOptions, setAllOptions] = useState<string[]>(PEOPLE);
     const [team, setTeam] = useState<string[]>([]);
 
-    function chooseMember(newMember: string) {
-        // Add the new member to the team if they are not already there
+    function chooseMember(person: string) {
+        /*
         if (!team.includes(newMember)) {
-            setTeam((prevTeam) => [...prevTeam, newMember]);
+            team.push(newMember);
         }
+        */
+       if (!team.includes(person)) setTeam([...team, person])
     }
 
     function clearTeam() {
-        // Reset the team state to an empty array
+        
         setTeam([]);
+        
     }
 
     return (
@@ -42,11 +45,9 @@ export function ChooseTeam(): React.JSX.Element {
                 </Col>
                 <Col>
                     <strong>Team:</strong>
-                    <ul>
-                        {team.map((member: string) => (
-                            <li key={member}>{member}</li>
-                        ))}
-                    </ul>
+                    {team.map((member: string) => (
+                        <li key={member}>{member}</li>
+                    ))}
                     <Button onClick={clearTeam}>Clear Team</Button>
                 </Col>
             </Row>

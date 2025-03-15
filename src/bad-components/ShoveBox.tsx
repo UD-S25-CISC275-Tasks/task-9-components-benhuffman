@@ -1,17 +1,16 @@
+
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-function ShoveBoxButton({
-    position,
-    setPosition,
-}: {
-    position: number;
-    setPosition: (newPosition: number) => void;
-}) {
+interface ShoveBoxProps {
+    position: number
+    setPosition: (newPosition: number) => void
+}
+function ShoveBoxButton({position, setPosition}: ShoveBoxProps): React.JSX.Element {
     return (
         <Button
             onClick={() => {
-                setPosition(position + 4); // Increase marginLeft by 4px on each click
+                setPosition(4 + position);
             }}
         >
             Shove the Box
@@ -19,7 +18,11 @@ function ShoveBoxButton({
     );
 }
 
-function MoveableBox({ position }: { position: number }): React.JSX.Element {
+interface MoveableBoxProps {
+    position: number
+}
+function MoveableBox({position}: MoveableBoxProps): React.JSX.Element {
+    
     return (
         <div
             data-testid="moveable-box"
@@ -30,25 +33,27 @@ function MoveableBox({ position }: { position: number }): React.JSX.Element {
                 border: "1px solid blue",
                 display: "inline-block",
                 verticalAlign: "bottom",
-                marginLeft: position + "px", // Dynamically set margin based on position
+                marginLeft: position + "px",
             }}
         ></div>
     );
 }
 
 export function ShoveBox(): React.JSX.Element {
-    const [position, setPosition] = useState<number>(10); // Initial position set to 10px
+    const [position, setPosition] = useState<number>(10);
+    //const box = MoveableBox();
 
     return (
         <div>
             <h3>Shove Box</h3>
+             <span>The box is at: {position}</span>
             <div>
                 <ShoveBoxButton
                     position={position}
-                    setPosition={setPosition} // Pass setPosition to update position state
-                />
-                <MoveableBox position={position} /> {/* Pass position as prop */}
-            </div>
+                    setPosition={setPosition}
+                ></ShoveBoxButton>
+                <MoveableBox position={position}></MoveableBox>
+            </div> 
         </div>
     );
 }
